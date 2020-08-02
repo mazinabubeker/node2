@@ -23,7 +23,7 @@ function newConnection(socket){
   socket.on('play', ()=>{
     if(isPlaying){return;}
     isPlaying = true;
-    io.in(groupNum.toString()).emit('play_resp', Date.now()+100);
+    io.in(groupNum.toString()).emit('play_resp', Date.now()+500);
   });
 
   socket.on('ready', ()=>{
