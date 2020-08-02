@@ -21,9 +21,9 @@ function newConnection(socket){
   console.log("Connected user: " + socket.id);
   socket.emit('song_list', {items: formatted_files, num: song_num});
   socket.on('play', ()=>{
-    if(isPlaying){return;}
+    // if(isPlaying){return;}
     isPlaying = true;
-    io.in(groupNum.toString()).emit('play_resp', Date.now()+5000);
+    io.in(groupNum.toString()).emit('play_resp', Date.now()+500);
   });
 
   socket.on('ready', ()=>{
