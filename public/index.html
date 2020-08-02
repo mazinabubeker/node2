@@ -14,10 +14,14 @@
   </head>
 
   <!-- BODY -->
-  <body>
-    <div class="btn" style='background-color: red;' onclick='readyRequest()'><p>Join</p></div>
-    <div class="btn" style='background-color: green;' onclick='playRequest()'><p>Play</p></div>
-    <div class="btn" style='background-color: orange;' onclick='reset()'><p>Reset</p></div>
+  <body scroll="no">
+    <div id="container" style="width: 35%;">
+      <div class="btn" style='background-color: red;' onclick='readyRequest()'><p>Join</p></div>
+      <div  id="play-btn" class="btn" style='background-color: green;' onclick='playRequest()'><p>Play</p></div>
+      <div id="reset-btn" class="btn" style='background-color: orange;' onclick='reset()'><p>Reset</p></div>
+    </div>
+    <div id='song-container'></div>
+    
   </body>
 </html>
 <script src="client.js"></script>
