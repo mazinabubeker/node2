@@ -1,25 +1,34 @@
 var express = require('express');
-var soccc = require('socket.io');
+var socket_module = require('socket.io');
 var app = express();
 var server = app.listen(process.env.PORT || 3000);
 app.use(express.static('public'));
-var io = soccc(server);
+var io = socket_module(server);
 io.sockets.on('connection', newConnection)
 
-var user_id = 0;
+var isPlaying = false;
+var groupNum = 0;
 
 function newConnection(socket){
   console.log("Connected user: " + socket.id);
-  socket.on('disconnect', ()=>{
-    user_id--;
+  socket.on('play', ()=>{
+    if(isPlaying){return;}
+    isPlaying = true;
+    io.in(groupNum.toString()).emit('play_resp', Date.now()+100);
   });
-  if(user_id == 0){
-    socket.emit('execute_action', 0);
-  }else{
-    socket.emit('execute_action', 1);
-    socket.on('new_rotation', val=>{
-      socket.broadcast.emit('update_rotation', val);
-    })
-  }
-  user_id++;
+
+  socket.on('ready', ()=>{
+    socket.join(groupNum.toString());
+  });
+
+  socket.on('reset', ()=>{
+    isPlaying = false;
+    io.in(groupNum.toString()).emit('stop');
+    groupNum++
+    // io.in('ready_users').leave('ready_users');
+    // Stop playing the song for "ready_users" in new function stop with document.body.bgnd color white
+    // clear the group "ready_users"
+    
+  });
+
 }
