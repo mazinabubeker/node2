@@ -46,6 +46,7 @@ function play(timeToPlay){
     sounds[song_num].play();
   }, timeToPlay - Date.now())
   document.body.style.backgroundColor = "#9dcff5";
+  document.getElementById('song-container').style.pointerEvents = "none";
 }
 
 
